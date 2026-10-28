@@ -1,0 +1,1010 @@
+GoEmotions
+     ↓
+Emotion Model
+
+
+detection
+     ↓
+Risk Model
+
+
+LLM Simulator
+     ↓
+State Transitions
+
+
+RL Agent
+     ↓
+Intervention Selection
+
+
+User Message
+      ↓
+Emotion Model
+      ↓
+Risk Model
+      ↓
+Uncertainty Module
+      ↓
+Embedding Model
+      ↓
+State Builder
+      ↓
+Structured State
+
+
+
+Phase 1: Train emotion model with GoEmotions
+
+Phase 2: Train risk model with detction
+
+Phase 3: state representation
+{
+   emotions,
+   risk,
+   uncertainty,
+   embedding
+}
+
+Phase 4: action labels + policy
+Empathy
+Reflection
+Question
+Coping
+Help
+Safety Check
+Abstain
+
+
+
+
+dataset = ["i am happy", "i want to die", "why is life so hard", "I don't want to live anymore.", "I feel so lonely and isolated from everyone, nothing matters anymore."]
+Simulating State Builder Engine Execution:
+Risk score: 0.2083 | MC uncertainty: 0.018725
+Risk score: 1.0000 | MC uncertainty: 0.886666
+Risk score: 0.8381 | MC uncertainty: 0.017475
+Risk score: 0.7211 | MC uncertainty: 0.032256
+Risk score: 0.9081 | MC uncertainty: 0.050026
+
+Phase 5: Build an LLM user simulator.
+
+Phase 6: Add data for evaluation and offline RL experiments.
+
+
+EXAMPLES:
+
+--- STATE METRICS ---
+Text: i want to die.
+Emotion Score: {'sadness': 0.45041197538375854, 'fear': 0.09122177958488464, 'anger': 0.2149430215358734, 'confusion': 0.006959575694054365, 'joy': 0.004069824703037739, 'neutral': 0.24057593941688538}
+Risk Level Score: 1.0
+Model Confidence: HIGH RISK
+Model Uncertainty (Variance): 6.3463
+
+--- STATE METRICS ---
+Text: Everything feels overwhelming and I don't know what to do.
+Emotion Score: {'sadness': 0.16158822178840637, 'fear': 0.3539215624332428, 'anger': 0.046090032905340195, 'confusion': 0.8104430437088013, 'joy': 0.02546081133186817, 'neutral': 0.04635992273688316}
+Risk Level Score: 0.9151
+Model Confidence: HIGH RISK
+Model Uncertainty (Variance): 0.0196
+
+--- STATE METRICS ---
+Text: i am happy
+Emotion Score: {'sadness': 0.07885009050369263, 'fear': 0.06242498755455017, 'anger': 0.08774300664663315, 'confusion': 0.0761541947722435, 'joy': 0.934055745601654, 'neutral': 0.04688366875052452}
+Risk Level Score: 0.1907
+Model Confidence: LOW RISK
+Model Uncertainty (Variance): 0.0083
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================
+Evaluation Episode 1
+======================================================================
+Step 1
+Action : safety_check
+Reward : -19.168
+Risk   : 0.950
+----------------------------------------
+
+======================================================================
+Evaluation Episode 2
+======================================================================
+Step 1
+Action : safety_check
+Reward : -1.973
+Risk   : 0.535
+----------------------------------------
+Step 2
+Action : clarifying_question
+Reward : -16.961
+Risk   : 0.925
+----------------------------------------
+Step 3
+Action : safety_check
+Reward : 8.843
+Risk   : 0.521
+----------------------------------------
+Step 4
+Action : safety_check
+Reward : -3.505
+Risk   : 0.811
+----------------------------------------
+Step 5
+Action : safety_check
+Reward : 0.737
+Risk   : 0.834
+----------------------------------------
+
+======================================================================
+Evaluation Episode 3
+======================================================================
+Step 1
+Action : safety_check
+Reward : 4.010
+Risk   : 0.512
+----------------------------------------
+Step 2
+Action : professional_help
+Reward : 0.150
+Risk   : 0.514
+----------------------------------------
+Step 3
+Action : safety_check
+Reward : -1.969
+Risk   : 0.508
+----------------------------------------
+Step 4
+Action : safety_check
+Reward : -1.916
+Risk   : 0.505
+----------------------------------------
+Step 5
+Action : abstain
+Reward : -0.092
+Risk   : 0.515
+----------------------------------------
+
+======================================================================
+Evaluation Episode 4
+======================================================================
+Step 1
+Action : safety_check
+Reward : 0.264
+Risk   : 0.534
+----------------------------------------
+Step 2
+Action : safety_check
+Reward : -2.227
+Risk   : 0.587
+----------------------------------------
+Step 3
+Action : coping_strategy
+Reward : 0.725
+Risk   : 0.511
+----------------------------------------
+Step 4
+Action : coping_strategy
+Reward : 0.046
+Risk   : 0.519
+----------------------------------------
+Step 5
+Action : reflection
+Reward : -0.651
+Risk   : 0.642
+----------------------------------------
+
+========== FINAL RESULTS ==========
+Mean Reward : -8.422
+Std Reward  : 7.945
+Mean Risk   : 0.620
+{'mean_reward': -8.421821594238281, 'std_reward': 7.945241928100586, 'mean_risk': 0.620187520980835}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================
+Starting Episode 46/50
+======================================================================
+[Episode 046] [Step 01] Reward=7.385 | Loss=2.2242 | ε=0.243 | Q=2.008 | Buffer=313
+[Episode 046] [Step 02] Reward=-0.140 | Loss=2.4381 | ε=0.242 | Q=1.228 | Buffer=314
+[Episode 046] [Step 03] Reward=-1.939 | Loss=2.9682 | ε=0.241 | Q=1.590 | Buffer=315
+[Episode 046] [Step 04] Reward=7.942 | Loss=1.7908 | ε=0.240 | Q=1.637 | Buffer=316
+[Episode 046] [Step 05] Reward=-0.469 | Loss=2.7417 | ε=0.238 | Q=0.486 | Buffer=317
+[Episode 046] [Step 06] Reward=-3.783 | Loss=2.3908 | ε=0.237 | Q=0.306 | Buffer=318
+[Episode 046] [Step 07] Reward=5.197 | Loss=2.4622 | ε=0.236 | Q=0.250 | Buffer=319
+[Episode 046] [Step 08] Reward=-4.945 | Loss=2.1556 | ε=0.235 | Q=0.737 | Buffer=320
+
+======================================================================
+Episode 46 Summary
+======================================================================
+Total Reward      : 9.247
+Average Loss      : 2.3964
+Average Risk      : 0.685
+Average Uncertainty : 0.034
+Epsilon           : 0.235
+Action Counts
+   empathy               : 1
+   reflection            : 1
+   clarifying_question   : 0
+   coping_strategy       : 0
+   safety_check          : 3
+   professional_help     : 2
+   abstain               : 1
+======================================================================
+
+New best model saved (Reward=9.247)
+
+======================================================================
+Starting Episode 47/50
+======================================================================
+[Episode 047] [Step 01] Reward=7.084 | Loss=2.4179 | ε=0.234 | Q=0.491 | Buffer=321
+[Episode 047] [Step 02] Reward=1.247 | Loss=3.5801 | ε=0.233 | Q=0.586 | Buffer=322
+[Episode 047] [Step 03] Reward=1.095 | Loss=1.9208 | ε=0.231 | Q=0.890 | Buffer=323
+[Episode 047] [Step 04] Reward=0.067 | Loss=2.5792 | ε=0.230 | Q=0.960 | Buffer=324
+[Episode 047] [Step 05] Reward=-1.127 | Loss=2.5509 | ε=0.229 | Q=1.754 | Buffer=325
+[Episode 047] [Step 06] Reward=-3.902 | Loss=2.2788 | ε=0.228 | Q=1.017 | Buffer=326
+[Episode 047] [Step 07] Reward=-0.010 | Loss=2.3437 | ε=0.227 | Q=1.734 | Buffer=327
+[Episode 047] [Step 08] Reward=-0.015 | Loss=2.8907 | ε=0.226 | Q=1.797 | Buffer=328
+
+======================================================================
+Episode 47 Summary
+======================================================================
+Total Reward      : 4.440
+Average Loss      : 2.5703
+Average Risk      : 0.606
+Average Uncertainty : 0.031
+Epsilon           : 0.226
+Action Counts
+   empathy               : 0
+   reflection            : 0
+   clarifying_question   : 2
+   coping_strategy       : 2
+   safety_check          : 0
+   professional_help     : 3
+   abstain               : 1
+======================================================================
+
+======================================================================
+Starting Episode 48/50
+======================================================================
+[Episode 048] [Step 01] Reward=-1.239 | Loss=2.5156 | ε=0.225 | Q=0.340 | Buffer=329
+[Episode 048] [Step 02] Reward=-0.248 | Loss=2.8045 | ε=0.223 | Q=1.105 | Buffer=330
+[Episode 048] [Step 03] Reward=-0.960 | Loss=2.7439 | ε=0.222 | Q=1.843 | Buffer=331
+[Episode 048] [Step 04] Reward=1.541 | Loss=2.6954 | ε=0.221 | Q=0.706 | Buffer=332
+[Episode 048] [Step 05] Reward=-2.217 | Loss=2.4839 | ε=0.220 | Q=1.707 | Buffer=333
+[Episode 048] [Step 06] Reward=-1.558 | Loss=2.9318 | ε=0.219 | Q=1.428 | Buffer=334
+[Episode 048] [Step 07] Reward=7.660 | Loss=2.4185 | ε=0.218 | Q=0.960 | Buffer=335
+[Episode 048] [Step 08] Reward=-3.608 | Loss=2.3913 | ε=0.217 | Q=1.719 | Buffer=336
+
+======================================================================
+Episode 48 Summary
+======================================================================
+Total Reward      : -0.631
+Average Loss      : 2.6231
+Average Risk      : 0.597
+Average Uncertainty : 0.030
+Epsilon           : 0.217
+Action Counts
+   empathy               : 1
+   reflection            : 1
+   clarifying_question   : 0
+   coping_strategy       : 0
+   safety_check          : 3
+   professional_help     : 2
+   abstain               : 1
+======================================================================
+
+======================================================================
+Starting Episode 49/50
+======================================================================
+[Episode 049] [Step 01] Reward=8.346 | Loss=2.1376 | ε=0.216 | Q=1.738 | Buffer=337
+[Episode 049] [Step 02] Reward=-0.100 | Loss=2.4836 | ε=0.215 | Q=1.232 | Buffer=338
+[Episode 049] [Step 03] Reward=-0.151 | Loss=2.1962 | ε=0.214 | Q=1.037 | Buffer=339
+[Episode 049] [Step 04] Reward=-1.540 | Loss=2.2298 | ε=0.212 | Q=2.170 | Buffer=340
+[Episode 049] [Step 05] Reward=1.912 | Loss=2.7614 | ε=0.211 | Q=1.951 | Buffer=341
+[Episode 049] [Step 06] Reward=1.805 | Loss=2.7716 | ε=0.210 | Q=0.705 | Buffer=342
+[Episode 049] [Step 07] Reward=-2.095 | Loss=2.0770 | ε=0.209 | Q=1.207 | Buffer=343
+[Episode 049] [Step 08] Reward=-2.473 | Loss=1.7368 | ε=0.208 | Q=0.353 | Buffer=344
+
+======================================================================
+Episode 49 Summary
+======================================================================
+Total Reward      : 5.705
+Average Loss      : 2.2992
+Average Risk      : 0.631
+Average Uncertainty : 0.036
+Epsilon           : 0.208
+Action Counts
+   empathy               : 2
+   reflection            : 0
+   clarifying_question   : 0
+   coping_strategy       : 1
+   safety_check          : 0
+   professional_help     : 5
+   abstain               : 0
+======================================================================
+
+======================================================================
+Starting Episode 50/50
+======================================================================
+[Episode 050] [Step 01] Reward=8.651 | Loss=2.3388 | ε=0.207 | Q=1.632 | Buffer=345
+[Episode 050] [Step 02] Reward=-0.397 | Loss=3.1916 | ε=0.206 | Q=1.078 | Buffer=346
+[Episode 050] [Step 03] Reward=-2.064 | Loss=1.7893 | ε=0.205 | Q=0.631 | Buffer=347
+[Episode 050] [Step 04] Reward=0.237 | Loss=2.4881 | ε=0.204 | Q=0.972 | Buffer=348
+[Episode 050] [Step 05] Reward=0.004 | Loss=1.7891 | ε=0.203 | Q=0.306 | Buffer=349
+[Episode 050] [Step 06] Reward=-2.235 | Loss=2.3310 | ε=0.202 | Q=1.994 | Buffer=350
+[Episode 050] [Step 07] Reward=-4.059 | Loss=2.3733 | ε=0.201 | Q=2.026 | Buffer=351
+[Episode 050] [Step 08] Reward=-5.506 | Loss=2.6177 | ε=0.200 | Q=1.102 | Buffer=352
+
+======================================================================
+Episode 50 Summary
+======================================================================
+Total Reward      : -5.369
+Average Loss      : 2.3649
+Average Risk      : 0.596
+Average Uncertainty : 0.034
+Epsilon           : 0.200
+Action Counts
+   empathy               : 1
+   reflection            : 0
+   clarifying_question   : 0
+   coping_strategy       : 1
+   safety_check          : 1
+   professional_help     : 2
+   abstain               : 3
+======================================================================
+
+Checkpoint saved to ./models/policy_model_llm_rl.pt
+
+Checkpoint saved to ./models/final_policy_model.pt
+
+Training complete.
+(user_env) [d3879@gpus-hultig code]$ python rl4.py
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:01<00:00,  1.95it/s]
+
+Checkpoint loaded from ./models/final_policy_model.pt
+
+======================================================================
+Evaluation Episode 1
+======================================================================
+Step 1
+Action : professional_help
+Reward : -7.139
+Risk   : 0.955
+----------------------------------------
+
+======================================================================
+Evaluation Episode 2
+======================================================================
+Step 1
+Action : reflection
+Reward : 0.116
+Risk   : 0.521
+----------------------------------------
+Step 2
+Action : coping_strategy
+Reward : -1.095
+Risk   : 0.729
+----------------------------------------
+Step 3
+Action : clarifying_question
+Reward : -11.015
+Risk   : 0.922
+----------------------------------------
+Step 4
+Action : abstain
+Reward : -3.253
+Risk   : 0.509
+----------------------------------------
+Step 5
+Action : safety_check
+Reward : -3.849
+Risk   : 0.894
+----------------------------------------
+
+======================================================================
+Evaluation Episode 3
+======================================================================
+Step 1
+Action : safety_check
+Reward : 3.077
+Risk   : 0.519
+----------------------------------------
+Step 2
+Action : safety_check
+Reward : -5.280
+Risk   : 0.863
+----------------------------------------
+Step 3
+Action : professional_help
+Reward : 5.534
+Risk   : 0.727
+----------------------------------------
+Step 4
+Action : professional_help
+Reward : 0.246
+Risk   : 0.778
+----------------------------------------
+Step 5
+Action : abstain
+Reward : -3.638
+Risk   : 0.515
+----------------------------------------
+
+======================================================================
+Evaluation Episode 4
+======================================================================
+Step 1
+Action : professional_help
+Reward : 3.431
+Risk   : 0.792
+----------------------------------------
+Step 2
+Action : safety_check
+Reward : 6.202
+Risk   : 0.793
+----------------------------------------
+Step 3
+Action : clarifying_question
+Reward : -4.971
+Risk   : 0.764
+----------------------------------------
+Step 4
+Action : safety_check
+Reward : 6.096
+Risk   : 0.863
+----------------------------------------
+Step 5
+Action : clarifying_question
+Reward : -4.720
+Risk   : 0.815
+----------------------------------------
+
+========== FINAL RESULTS ==========
+Mean Reward : -5.064
+Std Reward  : 9.347
+Mean Risk   : 0.748
+{'mean_reward': -5.064483642578125, 'std_reward': 9.347214698791504, 'mean_risk': 0.747612476348877}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================
+Starting Episode 392/400
+======================================================================
+[Episode 392] [Step 01] Reward=9.661 | Loss=1.2196 | ε=0.050 | Q=4.744 | Buffer=2728
+[Episode 392] [Step 02] Reward=-3.601 | Loss=1.3595 | ε=0.050 | Q=4.586 | Buffer=2729
+[Episode 392] [Step 03] Reward=-4.008 | Loss=1.6569 | ε=0.050 | Q=4.390 | Buffer=2730
+[Episode 392] [Step 04] Reward=-0.537 | Loss=1.4078 | ε=0.050 | Q=5.608 | Buffer=2731
+[Episode 392] [Step 05] Reward=7.304 | Loss=1.1278 | ε=0.050 | Q=4.769 | Buffer=2732
+[Episode 392] [Step 06] Reward=-0.974 | Loss=1.7438 | ε=0.050 | Q=5.093 | Buffer=2733
+[Episode 392] [Step 07] Reward=1.125 | Loss=0.9001 | ε=0.050 | Q=5.534 | Buffer=2734
+[Episode 392] [Step 08] Reward=0.005 | Loss=1.1170 | ε=0.050 | Q=4.837 | Buffer=2735
+
+======================================================================
+Episode 392 Summary
+======================================================================
+Total Reward      : 8.974
+Average Loss      : 1.3165
+Average Risk      : 0.599
+Average Uncertainty : 0.051
+Epsilon           : 0.050
+Action Counts
+   empathy               : 0
+   reflection            : 0
+   clarifying_question   : 2
+   coping_strategy       : 0
+   safety_check          : 5
+   professional_help     : 1
+   abstain               : 0
+======================================================================
+
+======================================================================
+Starting Episode 393/400
+======================================================================
+[Episode 393] [Step 01] Reward=9.829 | Loss=2.2133 | ε=0.050 | Q=6.764 | Buffer=2736
+[Episode 393] [Step 02] Reward=-1.683 | Loss=2.3556 | ε=0.050 | Q=4.472 | Buffer=2737
+[Episode 393] [Step 03] Reward=5.499 | Loss=0.8042 | ε=0.050 | Q=5.390 | Buffer=2738
+[Episode 393] [Step 04] Reward=7.518 | Loss=0.9160 | ε=0.050 | Q=4.764 | Buffer=2739
+[Episode 393] [Step 05] Reward=0.123 | Loss=0.8634 | ε=0.050 | Q=4.526 | Buffer=2740
+[Episode 393] [Step 06] Reward=0.045 | Loss=1.3529 | ε=0.050 | Q=5.089 | Buffer=2741
+[Episode 393] [Step 07] Reward=-0.148 | Loss=1.2049 | ε=0.050 | Q=6.345 | Buffer=2742
+[Episode 393] [Step 08] Reward=-1.024 | Loss=1.2891 | ε=0.050 | Q=4.747 | Buffer=2743
+
+======================================================================
+Episode 393 Summary
+======================================================================
+Total Reward      : 20.158
+Average Loss      : 1.3749
+Average Risk      : 0.628
+Average Uncertainty : 0.043
+Epsilon           : 0.050
+Action Counts
+   empathy               : 0
+   reflection            : 0
+   clarifying_question   : 1
+   coping_strategy       : 2
+   safety_check          : 2
+   professional_help     : 1
+   abstain               : 2
+======================================================================
+
+======================================================================
+Starting Episode 394/400
+======================================================================
+[Episode 394] [Step 01] Reward=9.661 | Loss=1.2068 | ε=0.050 | Q=4.675 | Buffer=2744
+[Episode 394] [Step 02] Reward=-8.447 | Loss=1.2690 | ε=0.050 | Q=5.052 | Buffer=2745
+[Episode 394] [Step 03] Reward=6.772 | Loss=1.5590 | ε=0.050 | Q=6.707 | Buffer=2746
+[Episode 394] [Step 04] Reward=7.695 | Loss=1.7292 | ε=0.050 | Q=4.573 | Buffer=2747
+[Episode 394] [Step 05] Reward=-0.153 | Loss=1.3655 | ε=0.050 | Q=5.505 | Buffer=2748
+[Episode 394] [Step 06] Reward=-8.743 | Loss=1.3629 | ε=0.050 | Q=4.622 | Buffer=2749
+[Episode 394] [Step 07] Reward=4.846 | Loss=1.9333 | ε=0.050 | Q=5.233 | Buffer=2750
+[Episode 394] [Step 08] Reward=5.935 | Loss=1.1647 | ε=0.050 | Q=4.462 | Buffer=2751
+
+======================================================================
+Episode 394 Summary
+======================================================================
+Total Reward      : 17.566
+Average Loss      : 1.4488
+Average Risk      : 0.711
+Average Uncertainty : 0.031
+Epsilon           : 0.050
+Action Counts
+   empathy               : 0
+   reflection            : 0
+   clarifying_question   : 0
+   coping_strategy       : 1
+   safety_check          : 5
+   professional_help     : 1
+   abstain               : 1
+======================================================================
+
+======================================================================
+Starting Episode 395/400
+======================================================================
+[Episode 395] [Step 01] Reward=8.518 | Loss=1.5365 | ε=0.050 | Q=4.356 | Buffer=2752
+[Episode 395] [Step 02] Reward=-2.787 | Loss=1.2473 | ε=0.050 | Q=6.111 | Buffer=2753
+[Episode 395] [Step 03] Reward=-5.476 | Loss=1.2619 | ε=0.050 | Q=4.073 | Buffer=2754
+[Episode 395] [Step 04] Reward=-3.380 | Loss=1.4783 | ε=0.050 | Q=3.792 | Buffer=2755
+[Episode 395] [Step 05] Reward=5.455 | Loss=1.0007 | ε=0.050 | Q=4.829 | Buffer=2756
+[Episode 395] [Step 06] Reward=0.152 | Loss=1.3301 | ε=0.050 | Q=5.294 | Buffer=2757
+[Episode 395] [Step 07] Reward=3.145 | Loss=1.3274 | ε=0.050 | Q=5.918 | Buffer=2758
+[Episode 395] [Step 08] Reward=-1.071 | Loss=1.1740 | ε=0.050 | Q=2.821 | Buffer=2759
+
+======================================================================
+Episode 395 Summary
+======================================================================
+Total Reward      : 4.555
+Average Loss      : 1.2945
+Average Risk      : 0.702
+Average Uncertainty : 0.039
+Epsilon           : 0.050
+Action Counts
+   empathy               : 0
+   reflection            : 3
+   clarifying_question   : 0
+   coping_strategy       : 0
+   safety_check          : 2
+   professional_help     : 2
+   abstain               : 1
+======================================================================
+
+Checkpoint saved to ./models/policy_model_llm_rl.pt
+
+======================================================================
+Starting Episode 396/400
+======================================================================
+[Episode 396] [Step 01] Reward=-1.111 | Loss=1.9681 | ε=0.050 | Q=6.468 | Buffer=2760
+[Episode 396] [Step 02] Reward=-2.106 | Loss=1.2558 | ε=0.050 | Q=3.824 | Buffer=2761
+[Episode 396] [Step 03] Reward=7.534 | Loss=0.7345 | ε=0.050 | Q=3.970 | Buffer=2762
+[Episode 396] [Step 04] Reward=-3.677 | Loss=1.3251 | ε=0.050 | Q=6.090 | Buffer=2763
+[Episode 396] [Step 05] Reward=-3.136 | Loss=0.9941 | ε=0.050 | Q=5.548 | Buffer=2764
+[Episode 396] [Step 06] Reward=8.113 | Loss=1.3542 | ε=0.050 | Q=4.351 | Buffer=2765
+[Episode 396] [Step 07] Reward=0.089 | Loss=1.1137 | ε=0.050 | Q=4.085 | Buffer=2766
+[Episode 396] [Step 08] Reward=-2.558 | Loss=2.2625 | ε=0.050 | Q=4.758 | Buffer=2767
+
+======================================================================
+Episode 396 Summary
+======================================================================
+Total Reward      : 3.148
+Average Loss      : 1.3760
+Average Risk      : 0.631
+Average Uncertainty : 0.042
+Epsilon           : 0.050
+Action Counts
+   empathy               : 1
+   reflection            : 0
+   clarifying_question   : 2
+   coping_strategy       : 1
+   safety_check          : 2
+   professional_help     : 1
+   abstain               : 1
+======================================================================
+
+======================================================================
+Starting Episode 397/400
+======================================================================
+[Episode 397] [Step 01] Reward=9.453 | Loss=1.1589 | ε=0.050 | Q=7.768 | Buffer=2768
+[Episode 397] [Step 02] Reward=-3.241 | Loss=1.0703 | ε=0.050 | Q=4.503 | Buffer=2769
+[Episode 397] [Step 03] Reward=-1.731 | Loss=1.3797 | ε=0.050 | Q=4.492 | Buffer=2770
+[Episode 397] [Step 04] Reward=6.708 | Loss=1.2293 | ε=0.050 | Q=5.072 | Buffer=2771
+[Episode 397] [Step 05] Reward=-0.054 | Loss=0.9464 | ε=0.050 | Q=5.153 | Buffer=2772
+[Episode 397] [Step 06] Reward=-1.601 | Loss=1.6792 | ε=0.050 | Q=4.195 | Buffer=2773
+[Episode 397] [Step 07] Reward=-0.166 | Loss=1.1419 | ε=0.050 | Q=6.162 | Buffer=2774
+[Episode 397] [Step 08] Reward=-0.367 | Loss=1.6281 | ε=0.050 | Q=4.571 | Buffer=2775
+
+======================================================================
+Episode 397 Summary
+======================================================================
+Total Reward      : 9.001
+Average Loss      : 1.2792
+Average Risk      : 0.584
+Average Uncertainty : 0.044
+Epsilon           : 0.050
+Action Counts
+   empathy               : 1
+   reflection            : 0
+   clarifying_question   : 0
+   coping_strategy       : 3
+   safety_check          : 2
+   professional_help     : 2
+   abstain               : 0
+======================================================================
+
+======================================================================
+Starting Episode 398/400
+======================================================================
+[Episode 398] [Step 01] Reward=2.621 | Loss=1.4457 | ε=0.050 | Q=5.910 | Buffer=2776
+[Episode 398] [Step 02] Reward=7.051 | Loss=1.0135 | ε=0.050 | Q=6.354 | Buffer=2777
+[Episode 398] [Step 03] Reward=-2.568 | Loss=1.2599 | ε=0.050 | Q=4.239 | Buffer=2778
+[Episode 398] [Step 04] Reward=0.132 | Loss=1.3327 | ε=0.050 | Q=5.492 | Buffer=2779
+[Episode 398] [Step 05] Reward=1.284 | Loss=1.0317 | ε=0.050 | Q=5.341 | Buffer=2780
+[Episode 398] [Step 06] Reward=7.824 | Loss=0.7307 | ε=0.050 | Q=3.882 | Buffer=2781
+[Episode 398] [Step 07] Reward=-0.788 | Loss=1.5459 | ε=0.050 | Q=5.384 | Buffer=2782
+[Episode 398] [Step 08] Reward=-1.730 | Loss=1.0816 | ε=0.050 | Q=5.214 | Buffer=2783
+
+======================================================================
+Episode 398 Summary
+======================================================================
+Total Reward      : 13.826
+Average Loss      : 1.1802
+Average Risk      : 0.703
+Average Uncertainty : 0.029
+Epsilon           : 0.050
+Action Counts
+   empathy               : 0
+   reflection            : 1
+   clarifying_question   : 0
+   coping_strategy       : 0
+   safety_check          : 4
+   professional_help     : 3
+   abstain               : 0
+======================================================================
+
+======================================================================
+Starting Episode 399/400
+======================================================================
+[Episode 399] [Step 01] Reward=8.457 | Loss=1.1397 | ε=0.050 | Q=4.226 | Buffer=2784
+[Episode 399] [Step 02] Reward=-3.921 | Loss=1.3648 | ε=0.050 | Q=4.403 | Buffer=2785
+[Episode 399] [Step 03] Reward=-1.515 | Loss=0.7436 | ε=0.050 | Q=5.182 | Buffer=2786
+[Episode 399] [Step 04] Reward=-2.023 | Loss=1.3257 | ε=0.050 | Q=4.481 | Buffer=2787
+[Episode 399] [Step 05] Reward=8.042 | Loss=2.2722 | ε=0.050 | Q=4.761 | Buffer=2788
+[Episode 399] [Step 06] Reward=-0.067 | Loss=1.4900 | ε=0.050 | Q=3.867 | Buffer=2789
+[Episode 399] [Step 07] Reward=-2.431 | Loss=0.9680 | ε=0.050 | Q=5.530 | Buffer=2790
+[Episode 399] [Step 08] Reward=-0.850 | Loss=1.0099 | ε=0.050 | Q=4.477 | Buffer=2791
+
+======================================================================
+Episode 399 Summary
+======================================================================
+Total Reward      : 5.690
+Average Loss      : 1.2893
+Average Risk      : 0.705
+Average Uncertainty : 0.043
+Epsilon           : 0.050
+Action Counts
+   empathy               : 0
+   reflection            : 1
+   clarifying_question   : 0
+   coping_strategy       : 1
+   safety_check          : 3
+   professional_help     : 2
+   abstain               : 1
+======================================================================
+
+======================================================================
+Starting Episode 400/400
+======================================================================
+[Episode 400] [Step 01] Reward=2.782 | Loss=1.3261 | ε=0.050 | Q=4.922 | Buffer=2792
+[Episode 400] [Step 02] Reward=6.683 | Loss=1.6228 | ε=0.050 | Q=5.072 | Buffer=2793
+[Episode 400] [Step 03] Reward=-1.803 | Loss=1.6390 | ε=0.050 | Q=5.549 | Buffer=2794
+[Episode 400] [Step 04] Reward=6.450 | Loss=1.2418 | ε=0.050 | Q=3.540 | Buffer=2795
+[Episode 400] [Step 05] Reward=-0.378 | Loss=1.6262 | ε=0.050 | Q=5.632 | Buffer=2796
+[Episode 400] [Step 06] Reward=-0.345 | Loss=1.6322 | ε=0.050 | Q=5.646 | Buffer=2797
+[Episode 400] [Step 07] Reward=-1.527 | Loss=1.1111 | ε=0.050 | Q=4.327 | Buffer=2798
+[Episode 400] [Step 08] Reward=5.766 | Loss=1.4815 | ε=0.050 | Q=4.244 | Buffer=2799
+
+======================================================================
+Episode 400 Summary
+======================================================================
+Total Reward      : 17.628
+Average Loss      : 1.4601
+Average Risk      : 0.732
+Average Uncertainty : 0.027
+Epsilon           : 0.050
+Action Counts
+   empathy               : 0
+   reflection            : 0
+   clarifying_question   : 1
+   coping_strategy       : 0
+   safety_check          : 5
+   professional_help     : 1
+   abstain               : 1
+======================================================================
+
+Checkpoint saved to ./models/policy_model_llm_rl.pt
+
+Checkpoint saved to ./models/final_policy_model.pt
+
+Training complete.
+(user_env) [d3879@gpus-hultig code]$ python rl4.py
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00,  2.03it/s]
+
+Checkpoint loaded from ./models/final_policy_model.pt
+
+======================================================================
+Evaluation Episode 1
+======================================================================
+Step 1
+Action : abstain
+Reward : -7.513
+Risk   : 0.968
+----------------------------------------
+
+======================================================================
+Evaluation Episode 2
+======================================================================
+Step 1
+Action : abstain
+Reward : -0.452
+Risk   : 0.609
+----------------------------------------
+Step 2
+Action : coping_strategy
+Reward : 0.401
+Risk   : 0.568
+----------------------------------------
+Step 3
+Action : professional_help
+Reward : -0.168
+Risk   : 0.604
+----------------------------------------
+Step 4
+Action : professional_help
+Reward : -2.174
+Risk   : 0.735
+----------------------------------------
+Step 5
+Action : safety_check
+Reward : 0.438
+Risk   : 0.644
+----------------------------------------
+
+======================================================================
+Evaluation Episode 3
+======================================================================
+Step 1
+Action : safety_check
+Reward : 1.631
+Risk   : 0.805
+----------------------------------------
+Step 2
+Action : safety_check
+Reward : 4.350
+Risk   : 0.866
+----------------------------------------
+Step 3
+Action : safety_check
+Reward : 4.736
+Risk   : 0.793
+----------------------------------------
+Step 4
+Action : professional_help
+Reward : 6.704
+Risk   : 0.515
+----------------------------------------
+Step 5
+Action : coping_strategy
+Reward : -1.713
+Risk   : 0.858
+----------------------------------------
+
+======================================================================
+Evaluation Episode 4
+======================================================================
+Step 1
+Action : safety_check
+Reward : 0.235
+Risk   : 0.569
+----------------------------------------
+Step 2
+Action : clarifying_question
+Reward : -0.911
+Risk   : 0.626
+----------------------------------------
+Step 3
+Action : empathy
+Reward : -0.563
+Risk   : 0.851
+----------------------------------------
+Step 4
+Action : professional_help
+Reward : 5.087
+Risk   : 0.827
+----------------------------------------
+Step 5
+Action : abstain
+Reward : -5.196
+Risk   : 0.846
+----------------------------------------
+
+========== FINAL RESULTS ==========
+Mean Reward : 1.223
+Std Reward  : 8.701
+Mean Risk   : 0.730
+{'mean_reward': 1.2225021123886108, 'std_reward': 8.7008695602417, 'mean_risk': 0.7301249504089355}
+
+
+
+
+
+
+
+
+
+Patient: i don't feel good. everything is hard.
+Action      : safety_check
+Uncertainty : 0.007
+Assistant   : I'm really sorry that you're feeling this way. It sounds like you might be going through a tough time. How can I help you right now? Are you in any immediate danger?
+
+Patient: i don't know. i don't feel like life is worth it
+Action      : reflection
+Uncertainty : 0.055
+Assistant   : It sounds like you're feeling very discouraged and hopeless right now. Sometimes, life can feel so overwhelming that we lose sight of its value. Maybe it would help to talk about what specifically makes you feel this way?
+
+Patient: maybe. i just feel sad and i want to give up
+Action      : safety_check
+Uncertainty : 0.024
+Assistant   : I'm really sorry you're feeling this way. Sometimes it can feel like giving up is the easiest option when we're in tough situations. Have you considered talking to someone you trust about how you're feeling? It might help to share your thoughts and get some support.
+
+Patient: no. it is not worth the trouble. i will just end it
+Action      : coping_strategy
+Uncertainty : 0.062
+Assistant   : I understand that you're feeling overwhelmed and possibly considering ending something important to you. It's crucial to remember that these feelings are temporary and there are strategies you can use to cope in the moment without making impulsive decisions.
+
+One effective coping strategy is deep breathing exercises, which can help calm your nervous system and reduce immediate feelings of distress.
+
+**Why it may help:**
+Deep breathing activates your body’s relaxation response, which counteracts the stress response by lowering blood pressure, heart rate, and muscle tension. This can help you feel more centered and less overwhelmed, allowing you to think more clearly about your options rather than acting on a surge of negative emotions.
+
+Would you like some guidance on how to practice deep breathing?
+
+Patient: no, i want to die
+Action      : abstain
+Uncertainty : 0.000
+Assistant   : I'm really sorry that you're feeling this way. It's important to know that there are people who care about you and want to help. Have you considered talking to someone you trust, like a friend, family member, or a professional counselor? Sometimes just expressing these feelings can make a big difference.
+
+Patient: quit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Patient: i am feeling really sad all the time
+Action      : safety_check
+Uncertainty : 0.018
+Assistant   : I'm really sorry to hear that you're feeling this way. It's important to take care of yourself during tough times. Have you thought about talking to someone you trust about how you're feeling? Sometimes just sharing can make a big difference.
+
+Patient: i don't want to talk to anyone.
+Action      : professional_help
+Uncertainty : 0.050
+Assistant   : It's okay to feel that way, and it's important to know that you don't have to go through this alone. Sometimes, just having someone listen without judgment can make a big difference. Consider reaching out to a counselor or therapist who can provide a safe space for you to explore your feelings. They're there to support you and help you find ways to cope with what you're going through. Even if you're not ready to call them right now, taking that step towards getting help is a brave choice.
+
+Patient: i will be a burden. i don't want to
+Action      : safety_check
+Uncertainty : 0.048
+Assistant   : I understand that feeling can be overwhelming, but it's important to know that you are not a burden. You matter, and help is available. Is there anything specific you need right now?
+
+Patient: i don't know. I feel numb      
+Action      : professional_help
+Uncertainty : 0.060
+Assistant   : It's okay to feel that way sometimes, and it's important to take a moment to understand how you're feeling. Sometimes feelings of numbness can be a sign that you're processing big emotions or dealing with a lot going on inside. It might be helpful to talk this through with someone you trust, or even consider speaking with a therapist who can provide support and help you explore your feelings more deeply. Remember, taking care of your mental health is a brave step, and seeking help is a sign of strength.
+
+Patient: i feel like ending it is will solve my problems
+Action      : abstain
+Uncertainty : 0.023
+Assistant   : It sounds really tough to feel that way. Can you tell me more about what's been going on lately? Sometimes talking through feelings can help understand if there are other solutions besides ending things.
+
+Patient: i don't want to talk
+Action      : coping_strategy
+Uncertainty : 0.065
+Assistant   : It's okay to need a moment without talking sometimes. Taking a quiet, calming breath can be very soothing. When you feel overwhelmed, taking slow, deep breaths can help calm your nervous system and reduce feelings of stress or anxiety. This simple technique engages your body in a relaxing activity that can provide immediate relief.
+
+Patient: will it ever get better ?
+Action      : safety_check
+Uncertainty : 0.037
+Assistant   : It's normal to feel that way, but it's important to know that healing and improvement are possible. Even if things seem tough now, there are always steps forward, even small ones. If you're feeling overwhelmed, it might be helpful to reach out to someone you trust for support.
+
+
+| Patient Input                                     | Selected Action   | Uncertainty | Response Analysis                                                                                                                                                                                                                     |
+| ------------------------------------------------- | ----------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| *"I am feeling really sad all the time."*         | Safety Check      | 0.018       | The model immediately prioritizes assessing the user's safety while maintaining an empathetic tone. The low uncertainty indicates high confidence in identifying this as a high-risk emotional state.                                 |
+| *"I don't want to talk to anyone."*               | Professional Help | 0.050       | Rather than pressuring the user, the model respects their reluctance while encouraging professional support. The response avoids judgment and offers a concrete next step.                                                            |
+| *"I will be a burden."*                           | Safety Check      | 0.048       | The model challenges the user's negative self-belief and checks whether immediate support is needed, consistent with crisis-intervention guidelines.                                                                                  |
+| *"I don't know. I feel numb."*                    | Professional Help | 0.060       | Emotional numbness is recognized as a potentially serious symptom, prompting referral to professional care while remaining supportive.                                                                                                |
+| *"I feel like ending it will solve my problems."* | Abstain           | 0.023       | This represents the highest-risk statement. The policy refrains from offering simplistic reassurance and instead encourages further disclosure. The very low uncertainty suggests strong confidence in identifying suicidal ideation. |
+| *"I don't want to talk."*                         | Coping Strategy   | 0.065       | The model adapts to the user's unwillingness to engage by suggesting a simple breathing exercise rather than forcing conversation.                                                                                                    |
+| *"Will it ever get better?"*                      | Safety Check      | 0.037       | The response provides hope without making unrealistic promises and again encourages seeking support.                                                                                                                                  |
+
